@@ -14,6 +14,12 @@ Example:
 python fictional/heisenberg_walter_white.py
 ```
 
+If you face error `No module named 'config'`, run this:
+```bash
+PYTHONPATH=. python <directory>/<filename>.py
+```
+
+
 ## Categories
 - **fictional**: Characters from movies, books, or TV shows.
 - **historical**: Famous historical figures.
