@@ -24,3 +24,53 @@ PYTHONPATH=. python <directory>/<filename>.py
 - **fictional**: Characters from movies, books, or TV shows.
 - **historical**: Famous historical figures.
 - **celebrity**: Interact with simulated versions of well-known people.
+
+## Create you own agents or just use llm run
+### Example of agent
+```python
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from langchain_core.tools import tool
+from utils.common import run_agent, get_agent
+
+@tool
+def some_tool(some_param: str) -> str:
+    """Tool description"""
+    return "response"
+
+
+character_name = ""
+character_description = ""
+def main():
+    chat_history = [SystemMessage(content=character_description)]
+    agent = get_agent([some_tool])
+    while True:
+        input_msg = input("You: ")
+        agent_output = run_agent(agent, chat_history)
+        print(character_name + ': ' + agent_output.content)
+        chat_history.append(HumanMessage(content=input_msg))
+        chat_history.append(AIMessage(content=agent_output.content))
+
+
+if __name__ == "__main__":
+    main()
+```
+### Example of llm run
+```python
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from utils.common import run_llm
+
+character_name = ""
+character_description = ""
+def main():
+    chat_history = [SystemMessage(content=character_description)]
+    while True:
+        input_msg = input("You: ")
+        llm_output = run_llm(chat_history)
+        print(character_name + ': ' + llm_output.content)
+        chat_history.append(HumanMessage(content=input_msg))
+        chat_history.append(AIMessage(content=llm_output.content))
+
+
+if __name__ == "__main__":
+    main()
+```
