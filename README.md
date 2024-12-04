@@ -44,10 +44,10 @@ def main():
     chat_history = [SystemMessage(content=character_description)]
     agent = get_agent([some_tool])
     while True:
-        input_msg = input("You: ")
+        input_msg = input("You: ").encode('utf-8').decode('utf-8')
+        chat_history.append(HumanMessage(content=input_msg))
         agent_output = run_agent(agent, chat_history)
         print(character_name + ': ' + agent_output.content)
-        chat_history.append(HumanMessage(content=input_msg))
         chat_history.append(AIMessage(content=agent_output.content))
 
 
@@ -64,10 +64,10 @@ character_description = ""
 def main():
     chat_history = [SystemMessage(content=character_description)]
     while True:
-        input_msg = input("You: ")
+        input_msg = input("You: ").encode('utf-8').decode('utf-8')
+        chat_history.append(HumanMessage(content=input_msg))
         llm_output = run_llm(chat_history)
         print(character_name + ': ' + llm_output.content)
-        chat_history.append(HumanMessage(content=input_msg))
         chat_history.append(AIMessage(content=llm_output.content))
 
 
