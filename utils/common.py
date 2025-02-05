@@ -17,8 +17,8 @@ llm = ChatOpenAI(model=settings.LLM_MODEL, temperature=settings.LLM_TEMPERATURE,
 def run_llm(chat_history: list[BaseMessage], streaming: bool = False) -> AIMessage:
     output = ""
     for chunk in llm.stream(chat_history):
-        if streaming:
-            print(chunk.content, end="", flush=True)
+        # if streaming:
+        #     print(chunk.content, end="", flush=True)
         output += chunk.content
     return AIMessage(content=output)
 
